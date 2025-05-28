@@ -22,8 +22,8 @@ app.use(cookieParser())
 app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(session({secret: 'cats', cookie: {
-   secure: "development" === "production" ? "true" : "auto",
-   sameSite: "development" === "production" ? "none" : "lax",
+   secure: "true",
+   sameSite: "none",
    maxAge: 30 * 24 * 60 * 60 * 1000,
   }, resave: false, saveUninitialized: false, store
 }))
