@@ -17,12 +17,7 @@ require('./passport')
 
 const app = express()
 
-app.use(cors({
-    origin: *,
-    credentials: true,
-    methods: ['GET','PUT','POST','DELETE'],
-    optionSuccessStatus:200,
-}))
+app.use(cors())
 
 app.use(express.json())
 app.use(cookieParser())
