@@ -3,7 +3,6 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const store = session.MemoryStore()
 const passport = require('passport')
 const userRoutes = require('./Routes/UserRoutes')
 const postRoutes = require('./Routes/PostRoutes')
@@ -27,7 +26,7 @@ app.use(session({secret: 'cats', cookie: {
    secure: "true",
    sameSite: "none",
    maxAge: 30 * 24 * 60 * 60 * 1000,
-  }, resave: false, saveUninitialized: false, store
+  }, resave: false, saveUninitialized: false
 }))
 
 app.use(passport.initialize())
