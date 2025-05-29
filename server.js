@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(session({secret: 'cats', cookie: {
    secure: "true",
    sameSite: "none",
-   maxAge: 1000 * 60 * 60,
+   maxAge: 1000 * 60 * 60 * 2,
   }, resave: false, saveUninitialized: false
 }))
 
