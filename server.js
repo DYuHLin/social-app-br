@@ -17,6 +17,13 @@ require('./passport')
 
 const app = express()
 
+app.use(cors({
+    origin: process.env.FRONTEND,
+    credentials: true,
+    methods: ['GET','PUT','POST','DELETE'],
+    optionSuccessStatus:200,
+}))
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.json({limit: '50mb'}))
@@ -31,13 +38,6 @@ app.use(session({secret: 'cats', cookie: {
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(cors({
-    origin: process.env.FRONTEND,
-    credentials: true,
-    methods: ['GET','PUT','POST','DELETE'],
-    optionSuccessStatus:200,
-}))
-
 app.use('/api/auth', userRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/comment', commentRoutes)
@@ -46,4 +46,4 @@ app.use('/api/follow', followRoutes)
 app.use('/api/likes', likeRoutes)
 app.use('/api/notifications', notificationRoutes)
 
-const server = app.listen(process.env.PORT, () => console.log(`app is listening on port ${process.env.PORT}`))
+app.listen(process.env.PORT, () => console.log(`app is listening on port ${process.env.PORT}`))
