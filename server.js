@@ -18,7 +18,7 @@ require('./passport')
 const app = express()
 
 app.use(cors({
-    origin: '*',
+    origin: *,
     credentials: true,
     methods: ['GET','PUT','POST','DELETE'],
     optionSuccessStatus:200,
