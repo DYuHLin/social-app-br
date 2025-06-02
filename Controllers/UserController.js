@@ -26,28 +26,6 @@ exports.userRegister = asyncHandler(async (req, res, next) => {
     }
 })
 
-exports.userLogin = asyncHandler(async (req, res, next) => {
-    try{
-        const user = await userModel.exist(req.body.username)
-        if(user.length == 0){
-            return res.json('username')
-        } else{
-            const match = await bcrypt.compare(req.body.password, user[0].password)
-            if(!match){
-                return res.json('password')
-            }
-            const accessToken = token.getAccessToken(user)
-            const refreshToken = token.getRefreshToken(user)
-            token.refreshTokens.push(refreshToken)
-            req.session.authenticated= true
-            req.session.user = user
-            return res.json(req.session)
-        }
-    } catch(err){
-        next(err)
-    }
-})
-
 exports.userUpdate = asyncHandler(async (req, res, next) => {
     try{
         bcrypt.hash(req.body.password, 10, async (err, hashed) => {
@@ -89,5 +67,6 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
 exports.userDelete = asyncHandler(async (req, res, next) => {
     await userModel.delete(req.params.id)
+    req.session.destroy()
     return res.json('deleted')
 })

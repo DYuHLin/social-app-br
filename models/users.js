@@ -7,6 +7,11 @@ users.get = async () => {
     return rows
 }
 
+users.byId = async (id) => {
+    const {rows} = await pool.query(`SELECT * FROM users WHERE id = ${id};`)
+    return rows
+}
+
 users.exist = async (id) => {
     const {rows} = await pool.query(`SELECT * FROM users WHERE username LIKE '${id}';`)
     return rows

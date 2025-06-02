@@ -11,11 +11,31 @@ const imageRoutes = require('./Routes/ImageRoutes')
 const followRoutes = require('./Routes/FollowerRoutes')
 const likeRoutes = require('./Routes/LikeRoutes')
 const notificationRoutes = require('./Routes/NotificationRoutes')
+const pool = require('./db/Pool')
 require('dotenv').config()
 require('./passport')
+require('./passportLocal')
 
 const app = express()
+const pgSession = require('connect-pg-simple')(session)
 
+app.use(express.json())
+app.use(cookieParser())
+app.use(bodyParser.json({limit: '50mb'}))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(session({store: new pgSession({
+    pool: pool,
+    tableName: 'user_sessions'
+    }),
+    secret: 'cats', cookie: {
+   secure: "true",
+   sameSite: "none",
+   maxAge: 1000 * 60 * 60 * 6,
+  }, resave: false, saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(cors({
     origin: process.env.FRONTEND,
     credentials: true,

@@ -7,7 +7,10 @@ require('dotenv').config()
 const router = express.Router()
 
 router.post('/register', user.userRegister)
-router.post('/login', user.userLogin)
+router.post('/login', passport.authenticate('local'), (req, res, next) => {
+    console.log(req.user)
+    return res.json(req.user)
+})
 router.get('/allusers', user.getAllUsers)
 router.get('/:id/user', user.getUser)
 router.put('/updateuser', user.userUpdate)
