@@ -33,6 +33,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     try{
         const user = await userModel.byId(id)
+        console.log(user)
         if(user.length == 0){
             throw new Error('user not found')
         }
