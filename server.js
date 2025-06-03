@@ -33,6 +33,7 @@ app.use(session({store: new pgSession({
    maxAge: 1000 * 60 * 60 * 6,
   }, resave: false, saveUninitialized: false
 }))
+app.set('trust proxy', true)
 
 app.use(passport.initialize())
 app.use(passport.session())
