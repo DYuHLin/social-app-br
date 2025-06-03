@@ -28,7 +28,7 @@ app.use(session({store: new pgSession({
     tableName: 'user_sessions'
     }),
     secret: 'cats', cookie: {
-   secure: "true",
+   secure: true,
    sameSite: "none",
    maxAge: 1000 * 60 * 60 * 6,
   }, resave: false, saveUninitialized: false
