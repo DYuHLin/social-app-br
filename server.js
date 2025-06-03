@@ -36,26 +36,13 @@ app.use(session({store: new pgSession({
 
 app.use(passport.initialize())
 app.use(passport.session())
+
 app.use(cors({
     origin: process.env.FRONTEND,
     credentials: true,
     methods: ['GET','PUT','POST','DELETE'],
     optionSuccessStatus:200,
 }))
-
-app.use(express.json())
-app.use(cookieParser())
-app.use(bodyParser.json({limit: '50mb'}))
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(session({secret: 'cats', cookie: {
-   secure: "true",
-   sameSite: "none",
-   maxAge: 1000 * 60 * 60 * 2,
-  }, resave: false, saveUninitialized: false
-}))
-
-app.use(passport.initialize())
-app.use(passport.session())
 
 app.use('/api/auth', userRoutes)
 app.use('/api/post', postRoutes)
